@@ -1,4 +1,5 @@
 "use client"
+import { Button } from "@/components/ui/button";
 import { IFranchise } from "@/type/franchise.type";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -7,7 +8,7 @@ export default function Home() {
   const router = useRouter()
   const [franchises, setFranchises] = useState<IFranchise[] | null>(null)
 
-console.log(process.env.BACKEND_URI)
+
   const getAllFranchises = async () => {
     try {
       const response = await axios.get(`http://localhost:3006/api/franchises`)
@@ -25,9 +26,9 @@ console.log(process.env.BACKEND_URI)
     return <h1>Loading....</h1>
   }
   return (
-    <div className="min-h-screen bg-gray-100 p-6 font-serif">
-      <nav className="bg-blue-600 p-4 text-white text-center text-xl font-bold">
-        Franchise Listings
+    <div className="min-h-screen bg-gray-100 p-6 font-serif center">
+      <nav className="bg-gray-600 p-4 text-white text-center text-xl font-bold">
+        Franchise Listings  
       </nav>
       <div className="container mx-auto mt-6">
         <h1 className="text-2xl font-semibold text-black text-center mb-4">Available Franchises</h1>
@@ -45,9 +46,11 @@ console.log(process.env.BACKEND_URI)
               <p className="text-gray-600">Locations: {franchise.locations.join(", ")}</p>
               <p className="text-gray-600">Support: {franchise.support_details}</p>
               <p className="text-gray-600">Contact: {franchise.contact_email} | {franchise.contact_phone}</p>
-              <button type="button" className="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={() => {
+              
+              <Button className="cursor-pointer" onClick={() => {
                 router.push(`/${franchise._id}`)
-              }}>Explore</button>
+              }}>Explore</Button>
+              
             </div>
           ))}
         </div>
